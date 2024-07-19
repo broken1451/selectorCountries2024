@@ -1,0 +1,55 @@
+<h1 class="mt-3">Selectores Anidados DOS</h1>
+<hr>
+
+<form novalidate autocomplete="off" [formGroup]="myForm"> 
+
+    <div class="row mb-3">
+        <div class="col">
+            <label for="" class="form-label">Continente</label> 
+            <select class="form-control" formControlName="region" (change)="onRegionChange($event)">
+                <option disabled [value]="''">-- Seleccione Continente</option>
+                @for (region of regions; track region) {
+                    <option [value]="region">{{region}}</option>
+                }
+            </select>
+        </div>
+    </div>
+   
+    @if (countryByRegion.length > 0) {
+        <div class="row mb-3">
+            <div class="col">
+                <label for="" class="form-label">Pais</label>
+                <select class="form-control" formControlName="country" (change)="onCountryChange($event)">
+                    <option disabled [value]="''">-- Seleccione pais</option>
+                    @for (country of countryByRegion; track country) {
+                        <option [value]="country.cca3">{{country.name}}</option>
+                    }
+                </select>
+            </div>
+        </div>
+    }
+
+    @if (boarders.length > 0) {
+        <div class="row mb-3">
+            <div class="col">
+                <label for="" class="form-label">Fronteras</label>
+                <select class="form-control" formControlName="border">
+                    <option disabled [value]="''">-- Seleccione Frontera</option>
+                    @for (border of boarders; track border.cca3) {
+                        <option [value]="border.cca3">{{border.name}}</option>
+                    }
+                </select>
+            </div>
+        </div>
+    }
+
+</form>
+
+<h3>Formulario</h3>
+<code>
+    {{ myForm.value | json}}
+</code>
+
+<p>
+    isValidForm {{ myForm.valid }}
+</p>
